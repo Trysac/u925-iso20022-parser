@@ -1,16 +1,9 @@
 # iso20022-parser
 
-> Parse and validate ISO 20022 pacs.008 and camt.053 messages with hardened XML parsing, XSD validation and typed extraction of payment and statement fields Maven artifact `io.github.trysac:iso20022-parser`, Java package
-> `io.github.trysac.iso20022_parser`, MIT licensed, Java >= 21, standard library only.
+Parse and validate ISO 20022 pacs.008 and camt.053 messages with hardened XML parsing, XSD validation and typed extraction of payment and statement fields. Maven artifact `io.github.trysac:iso20022-parser`.
 
 ## Docs
 
-- [README](README.md): problem, install, usage example
-- [AGENTS](AGENTS.md): commands, folder map, conventions, limits
-- [Architecture](docs/ARCHITECTURE.md): shape of the library and its public API
-- [Testing](docs/TESTING.md): how to run and extend the tests
-
-## Optional
-
-- [Stack](docs/STACK.md): tools used and discarded
-- [Changelog](CHANGELOG.md): release history
+- [README](README.md): Installation and API usage
+- [SECURITY](docs/SECURITY.md): Threat model
+- [TESTING](docs/TESTING.md): Test strategy

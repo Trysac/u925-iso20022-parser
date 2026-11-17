@@ -9,4 +9,5 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Add hardened ISO 20022 `pacs.008.001.08` and `camt.053.001.08` parser, XSD validator, and business rule validator.
 - Initial project structure from the factory utility template.

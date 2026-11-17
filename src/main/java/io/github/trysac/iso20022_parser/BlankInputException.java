@@ -1,11 +1,15 @@
 package io.github.trysac.iso20022_parser;
 
-/** The input is empty or holds only whitespace. */
+/**
+ * Legacy exception retained for template compatibility.
+ *
+ * @see Iso20022Exception
+ */
 public final class BlankInputException extends IllegalArgumentException {
 
   private static final long serialVersionUID = 1L;
 
-  /** Creates the exception with the message {@code input is blank}. */
+  /** Creates a blank input exception. */
   public BlankInputException() {
     super("input is blank");
   }
