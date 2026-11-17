@@ -13,12 +13,3 @@
 | Semgrep CE + OSV-Scanner | The factory's own rules; OSV advisories over Maven's resolved artifacts and over `pom.xml`. |
 | gitleaks | Secret scanning locally and in CI. |
 | GitHub Actions + Dependabot | Thin CI wrapper over the local gates; weekly dependency updates. |
-
-## Discarded
-
-| Tool | Why not |
-|---|---|
-| Gradle | Maven's declarative `pom.xml` is simpler to keep factory-owned; Gradle builds are code. |
-| Checkstyle / SpotBugs | google-java-format fixes layout and Error Prone covers the bug patterns at compile time. |
-| OWASP dependency-check | Needs the NVD database (a large download with an API key); OSV covers Maven advisories. |
-| Shell scripts for gates | Not portable to Windows; the gates are a Java program in `scripts/Check.java`. |

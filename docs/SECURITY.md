@@ -1,25 +1,12 @@
-# Security notes
+# Security & Threat Model
 
-## Threat model
+## Defended Threats
 
-`io.github.trysac:iso20022-parser` is a pure library without I/O. The main risks are:
+- **XML External Entity (XXE) & Entity Expansion**: `XMLInputFactory` disables DTDs and entity replacement. `DOCTYPE` declarations or entity references immediately throw `doctype_forbidden`.
+- **External Schema/DTD Resolution**: `SchemaFactory` and `Validator` explicitly set `ACCESS_EXTERNAL_DTD` and `ACCESS_EXTERNAL_SCHEMA` to empty strings.
+- **Resource Exhaustion**: Inputs larger than 10,485,760 bytes are rejected before parsing (`input_too_large`). Nesting depth exceeding 64 levels is rejected during streaming (`too_deep`).
+- **Sensitive Data Leakage**: Exception messages are sanitized and truncated to 200 characters to prevent dumping sensitive XML payload content into logs.
 
-- **Supply chain**: a compromised dependency, Maven plugin or CI action. Mitigation: standard
-  library only, every plugin and dependency pinned to an exact version in `pom.xml`, OSV-Scanner
-  over every artifact Maven resolves and over `pom.xml` in the gates, Dependabot weekly updates,
-  actions pinned by commit SHA, minimal workflow permissions.
-- **Leaked secrets**: tokens committed by mistake. Mitigation: `gitleaks` runs in the local gates
-  and in CI; `.env` files are git-ignored.
-- **Insecure code**: command injection, unsafe deserialization, disabled TLS verification.
-  Mitigation: Error Prone and javac `-Xlint:all` with warnings as errors, and the factory's Semgrep
-  rules (`.semgrep/factory-rules.yml`, `nosemgrep` ignored); fix the code instead of silencing it.
-- **Untrusted input**: callers may pass hostile strings. Mitigation: validate input and throw
-  explicit, documented exceptions; never deserialize untrusted bytes with `ObjectInputStream`;
-  never start a shell with untrusted data.
+## Not Defended
 
-## Publishing
-
-Releases are git tags; publishing to Maven Central needs a namespace account and a signing key,
-which are never stored in the repository.
-
-To report a vulnerability, see [SECURITY.md](../SECURITY.md).
+- **Message Authenticity**: Cryptographic message signatures (e.g., `XMLDSig`) are not parsed or verified by this library.
